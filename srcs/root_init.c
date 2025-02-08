@@ -38,9 +38,17 @@ t_root	*root_init(char *filename)
 //__ The grid will be 40*40 pixels in grid.
 static	void	renderer_init(t_root *root)
 {
+	int screen_width;
+	int screen_height;
 	root->mlx_conn = mlx_init ();
 	if (!root->mlx_conn)
 		root_destroy (root, "mlx_init(): Connection failed", 0);
+	mlx_get_screen_size(root->mlx_conn, &screen_width, &screen_height);
+		if (root->game->width * 40 > screen_width || root->game->height * 40 > screen_height)
+	{
+		ft_putstr_fd("Error\nMap is too big for the screen!\n", 2);
+		exit(1);
+	}
 	root->mlx_win = mlx_new_window (root->mlx_conn, 
 					root->game->width * 40, 
 					root->game->height * 40, 
