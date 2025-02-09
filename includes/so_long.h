@@ -66,30 +66,46 @@ typedef	struct s_root
 }	t_root;
 
 //*****[ Functions Prototype ]*****
+
+// Error handling:
 void	die (char *errmsg, int errnum);
-t_root	*root_init (char *filename);
 void	root_destroy (t_root *root, char *errmsg, int errnum);
-void	game_init (t_root *root, char *file_name);
 void	game_destroy (t_game *game);
+
+// Initializations
+t_root	*root_init (char *filename);
+void	game_init (t_root *root, char *file_name);
 void	map_init(t_root *root, char *file_name);
+//
+// Map Processing
 void	map_read (t_root *root, char *file);
 void	map_width(t_root *root, char *file);
 void	map_height(t_root *root, char *file);
-void	map_isvalid(t_root *root, char *file);
 void	map_parsing(t_root *root, char *file);
+void    get_coord (t_root *root, char *file);
+void	free_copy(char **copy, int height);
+//
+// Map Validation
+void	map_isvalid(t_root *root, char *file);
+int	is_valid_path(t_root *root, char **map);
+//
+// Rendering
 void	draw (t_root *root);
+void	update (t_root *root);
+//
+// MLX utils
 unsigned int	mlx_get_pixel (t_img *img, int x, int y);
 unsigned int	mlx_rgb_to_int (int a, int r, int g, int b);
 void	mlx_draw_pixel (t_img *img, int x, int y, int color);
+//
+// Event Handling
 int	key_released(int keycode, t_root *root);
 int	key_pressed(int keycode, t_root *root);
 int	destroy_hook(int keycode, t_root *root);
-void	update (t_root *root);
+//
+// Movement
 void	move_up (t_root *root, int x, int y);
 void	move_down (t_root *root, int x, int y);
 void	move_right (t_root *root, int x, int y);
 void	move_left (t_root *root, int x, int y);
-void    get_coord (t_root *root, char *file);
-int	is_valid_path(t_root *root, char **map);
-void	free_copy(char **copy, int height);
 #endif
