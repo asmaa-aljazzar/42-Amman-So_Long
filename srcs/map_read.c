@@ -26,7 +26,7 @@ void	map_read(t_root *root, char *file)
 	if (!is_valid_path(root, char_map))
 	{
 		free_copy(char_map, root->game->height);
-		root_destroy(root, "Error: No valid path exists!", 1);
+		root_destroy(root, "No valid path exists!", 1);
 	}
 	free_copy(char_map, root->game->height);
 }

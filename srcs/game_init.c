@@ -1,6 +1,6 @@
 #include "../includes/so_long.h"
 
-void    game_init(t_root *root, char *file_name);
+void	game_init(t_root *root, char *file_name);
 
 //__ This function initialize game structure 
 //   by set an initial value to 0 
