@@ -1,8 +1,8 @@
 #include "so_long.h"
 
-unsigned int	mlx_get_pixel (t_img *img, int x, int y);
-unsigned int	mlx_rgb_to_int (int a, int r, int g, int b);
-void	mlx_draw_pixel (t_img *mlx_img, int x, int y, int color);
+unsigned int	mlx_get_pixel(t_img *img, int x, int y);
+unsigned int	mlx_rgb_to_int(int a, int r, int g, int b);
+void			mlx_draw_pixel(t_img *mlx_img, int x, int y, int color);
 
 //__ Return 32-bit integers represent in ARGB format.
 //
@@ -18,8 +18,12 @@ void	mlx_draw_pixel (t_img *mlx_img, int x, int y, int color);
 //   The function returns this value, which is the color of the pixel.
 unsigned int	mlx_get_pixel(t_img *img, int x, int y)
 {
-	return (*(unsigned int *)
-		(img->data + (x * img->bpp / 8 + y * img->size_line)));	
+	int	bpp;
+	int	line;
+
+	bpp = img->bpp;
+	line = img->size_line;
+	return (*(unsigned int *)(img->data + (x * bpp / 8 + y * line)));
 }
 
 // Shifting colors to get the final color value.
@@ -34,6 +38,7 @@ unsigned int	mlx_rgb_to_int(int a, int r, int g, int b)
 void	mlx_draw_pixel(t_img *mlx_img, int x, int y, int color)
 {
 	char	*target;
+
 	target = mlx_img->data + (x * mlx_img->bpp / 8 + y * mlx_img->size_line);
-	*(unsigned int *)target = color; 
+	*(unsigned int *)target = color;
 }

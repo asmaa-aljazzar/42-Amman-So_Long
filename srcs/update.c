@@ -1,8 +1,7 @@
 #include "../includes/so_long.h"
 
-static void	print_if_moved (t_root *root, int x, int y);
-static void	is_collectable (t_root *root);
-void	update (t_root *root);
+static void	print_if_moved(t_root *root, int x, int y);
+static void	is_collectable(t_root *root);
 
 //__ If player_[ direction ] != 0 
 //   this is mean the player has been moved [ key pressed ].
@@ -25,7 +24,6 @@ void	update(t_root *root)
 
 	x = root->game->player.x;
 	y = root->game->player.y;
-
 	if (root->game->player_up != 0)
 		move_up (root, x, y);
 	else if (root->game->player_down != 0)
@@ -38,13 +36,13 @@ void	update(t_root *root)
 	is_collectable (root);
 	draw (root);
 	if (root->game->player.x == root->game->exit.x
-			&& root->game->player.y == root->game->exit.y)
+		&& root->game->player.y == root->game->exit.y)
 		if (root->game->count_coll == root->game->player_coll)
 			root_destroy (root, 0, 0);
 }
 
 // If the player moved then print the number of move in terminal.
-static void	print_if_moved (t_root *root, int x, int y)
+static void	print_if_moved(t_root *root, int x, int y)
 {
 	if (root->game->player.x != x || root->game->player.y != y)
 	{
@@ -68,7 +66,7 @@ static void	is_collectable(t_root *root)
 	while (i < root->game->count_coll)
 	{
 		if (root->game->coll[i].x == root->game->player.x
-				&& root->game->coll[i].y == root->game->player.y)
+			&& root->game->coll[i].y == root->game->player.y)
 		{
 			root->game->coll[i].x = -1;
 			root->game->coll[i].y = -1;

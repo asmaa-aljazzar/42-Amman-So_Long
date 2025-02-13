@@ -1,18 +1,19 @@
 #include "../includes/so_long.h"
 
-static void     if_not_malloc(t_root *root, char *file, char *errmsg);
+static void	if_not_malloc(t_root *root, char *file, char *errmsg);
 static char	**duplicate_map(char *file, int height, int width);
-void	free_copy(char **copy, int height);
-
+void		free_copy(char **copy, int height);
 
 void	map_read(t_root *root, char *file)
 {
 	char	**char_map;
+	int		size;
 
 	map_width(root, file);
 	map_height(root, file);
-	map_isvalid(root, file);	
-	root->game->coll = (t_coord *)malloc(sizeof(t_coord) * root->game->count_coll);
+	map_isvalid(root, file);
+	size = sizeof(t_coord) * root->game->count_coll;
+	root->game->coll = (t_coord *)malloc(size);
 	if (!root->game->coll)
 		if_not_malloc(root, file, "map_read(): coll, malloc():");
 	root->game->map = (int **)malloc(sizeof(int *) * root->game->height);
@@ -36,7 +37,6 @@ static void	if_not_malloc(t_root *root, char *file, char *errmsg)
 	free (file);
 	root_destroy (root, errmsg, errno);
 }
-#include "../includes/so_long.h"
 
 // 📝 Duplicate the original character map before converting it to 0/1
 static char	**duplicate_map(char *file, int height, int width)
@@ -48,8 +48,8 @@ static char	**duplicate_map(char *file, int height, int width)
 	copy = (char **)malloc(sizeof(char *) * height);
 	if (!copy)
 		return (NULL);
-	row = 0;
-	while (row < height)
+	row = -1;
+	while (++row < height)
 	{
 		copy[row] = (char *)malloc(sizeof(char) * (width + 1));
 		if (!copy[row])
@@ -64,21 +64,22 @@ static char	**duplicate_map(char *file, int height, int width)
 			col++;
 		}
 		copy[row][col] = '\0';
-		row++;
 	}
 	return (copy);
 }
+
+// free rows
+// free map
 void	free_copy(char **copy, int height)
 {
 	int	i;
 
-	if (!copy) // Ensure copy is not NULL
-		return;
-	
+	if (!copy)
+		return ;
 	i = 0;
 	while (i < height)
 	{
-		if (copy[i]) // Only free allocated rows
+		if (copy[i])
 			free(copy[i]);
 		i++;
 	}
@@ -98,7 +99,8 @@ void	free_copy(char **copy, int height)
 // 	map_width(root, file);
 // 	map_height(root, file);
 // 	map_isvalid(root, file);
-// 	root->game->coll = (t_coord *)malloc(sizeof(t_coord) * root->game->count_coll);
+// 	root->game->coll = 
+// 	(t_coord *)malloc(sizeof(t_coord) * root->game->count_coll);
 // 	if (!root->game->coll)
 // 		if_not_malloc(root, file, "map_read(): coll, malloc():");
 // 	root->game->map = (int **)malloc(sizeof(int *) * root->game->height);

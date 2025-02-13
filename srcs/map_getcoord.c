@@ -1,11 +1,12 @@
 #include "../includes/so_long.h"
-void    get_coord (t_root *root, char *file);
-static void     set_coord(t_root *root, char *file, int k, int *obj);
-void	free_matrix(t_root *root, char *file, int **map, int row);
 
-void    get_coord (t_root *root, char *file)
+void		get_coord(t_root *root, char *file);
+static void	set_coord(t_root *root, char *file, int k, int *obj);
+void		free_matrix(t_root *root, char *file, int **map, int row);
+
+void	get_coord(t_root *root, char *file)
 {
-    int	row;
+	int	row;
 	int	col;
 	int	point;
 	int	obj;
@@ -21,19 +22,20 @@ void    get_coord (t_root *root, char *file)
 		col = 0;
 		while (col < root->game->width)
 		{
-            set_coord(root, file, point, &obj);
+			set_coord(root, file, point, &obj);
 			col++;
 			point++;
 		}
 		point++;
 	}
 }
+
 // Check the current character
 // Save its [ x, y ] position
 //	|👉 k / (width + 1) gives the row (Y-coordinate).
 //	|👉 k % (width + 1) gives the column (x-coordinate).
 // change the value to 0 make it a normal floor
-static void     set_coord(t_root *root, char *file, int k, int *obj)
+static void	set_coord(t_root *root, char *file, int k, int *obj)
 {
 	if (file[k] == 'P')
 	{
@@ -53,15 +55,15 @@ static void     set_coord(t_root *root, char *file, int k, int *obj)
 	}
 }
 
-
 // Loop over the 2D array and free each element [ row ]
 // then free the matrix,
 // set the map = 0,
 // free the file,
 // destroy the connection.
- void	free_matrix(t_root *root, char *file, int **map, int row)
+void	free_matrix(t_root *root, char *file, int **map, int row)
 {
 	int	i;
+
 	i = 0;
 	while (i < row)
 		free (map[i++]);

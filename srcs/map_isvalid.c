@@ -1,8 +1,10 @@
 #include "../includes/so_long.h"
 
-void	map_isvalid (t_root *root, char *file);
-static int	isborder (t_root *root, int i);
-static void	isvalid_character (t_root *root, char *file, int i);
+static int	isborder(t_root *root, int i);
+static void	isvalid_character(t_root *root, char *file, int i);
+void		map_isvalid(t_root *root, char *file);
+static void	free_and_destroy(char *file, t_root *root, char *errmsg);
+
 //__ Check if the map is surrounded by walls ('1').
 //
 //__ Check if the map contains exactly one player ('P')
@@ -25,7 +27,7 @@ void	map_isvalid(t_root *root, char *file)
 	while (file[++i])
 	{
 		if (file[i] == '\n')
-			continue;
+			continue ;
 		if (isborder(root, i))
 		{
 			if (file[i] != '1')
@@ -39,14 +41,10 @@ void	map_isvalid(t_root *root, char *file)
 			isvalid_character (root, file, i);
 		}
 	}
-	if (root->game->count_player !=1
+	if (root->game->count_player != 1
 		|| root->game->count_exit != 1
 		|| root->game->count_coll < 1)
-	{
-		free (file);
-		root_destroy (root, "map elements is invalid!", 0);
-	}
-	
+		free_and_destroy (file, root, "map elements is invalid!");
 }
 
 // Welcome to the hardest section for me -_-
@@ -81,9 +79,11 @@ void	map_isvalid(t_root *root, char *file)
 // Return 1 if success and 0 if faild.
 static int	isborder(t_root *root, int i)
 {
-	if (i < root->game->width || i > (root->game->width + 1) * (root->game->height - 1))
+	if (i < root->game->width
+		|| i > (root->game->width + 1) * (root->game->height - 1))
 		return (1);
-	if (i % (root->game->width + 1) == 0 || i % (root->game->width + 1) == (root->game->width - 1))
+	if (i % (root->game->width + 1) == 0
+		|| i % (root->game->width + 1) == (root->game->width - 1))
 		return (1);
 	return (0);
 }
@@ -101,8 +101,11 @@ static void	isvalid_character(t_root *root, char *file, int i)
 	else if (file[i] == '1' || file[i] == '0')
 		return ;
 	else
-	{
-		free (file);
-		root_destroy (root, "Invalid character in the map", 0);
-	}
+		free_and_destroy (file, root, "Invalid character in the map");
+}
+
+static void	free_and_destroy(char *file, t_root *root, char *errmsg)
+{
+	free (file);
+	root_destroy (root, errmsg, errno);
 }

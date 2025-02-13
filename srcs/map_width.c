@@ -1,6 +1,6 @@
 #include "../includes/so_long.h"
 
-void	map_width (t_root *root, char *file)
+void	map_width(t_root *root, char *file)
 {
 	root->game->width = 0;
 	while (file[root->game->width] && file[root->game->width] != '\n')
@@ -9,6 +9,5 @@ void	map_width (t_root *root, char *file)
 	{
 		free (file);
 		root_destroy (root, "map_width(): map is not valid", 0);
-
 	}
 }

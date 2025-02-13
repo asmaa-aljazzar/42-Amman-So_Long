@@ -1,11 +1,11 @@
 #include "../includes/so_long.h"
 
-void    root_destroy (t_root *root, char *errmsg, int errnum);
+void	root_destroy(t_root *root, char *errmsg, int errnum);
 
 //__ This function will check every value in the root
 //   and game if anyone is exist it will destroy it and 
 //   free the root then will display the error message
-void	root_destroy (t_root *root, char *errmsg, int errnum)
+void	root_destroy(t_root *root, char *errmsg, int errnum)
 {
 	if (root != 0)
 	{
