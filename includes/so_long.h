@@ -26,7 +26,6 @@ typedef struct s_coord
 	int	y;
 }	t_coord;
 
-
 // 	Game structure and all movement
 typedef struct s_game
 {
@@ -69,15 +68,15 @@ typedef struct s_root
 // handle flood fill arguments
 typedef struct s_found
 {
-		int     collectibles_found;
-		int     exit_found;
-}t_found;
+	int	collectibles_found;
+	int	exit_found;
+}	t_found;
 
 typedef struct s_use
 {
 	t_root	*root;
 	char	**map;
-}t_use;
+}	t_use;
 
 //*****[ Functions Prototype ]*****
 //
